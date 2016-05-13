@@ -3,6 +3,12 @@ body {
     padding-bottom: 20px;
 }
 
+@media (min-width: 768px) {
+    .container {
+        max-width: 730px;
+    }
+}
+
 .messages {
     height: 400px;
     border: #ccc;

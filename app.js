@@ -40,7 +40,7 @@ var KeyInput = React.createClass({
                         className ="form-control"
                         id="token-input"
                         type="text"
-                        placeholder="Your key"
+                        placeholder="Bot token"
                         value={this.props.value}
                         onChange={this.handleChange}
                     />
@@ -69,7 +69,7 @@ var MessageInput = React.createClass({
     },
     render: function () {
         return (
-            <form className="form-inline" onSubmit={this.handleSubmit}>
+            <form className="" onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <input
                         className ="form-control"
