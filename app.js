@@ -2,7 +2,9 @@
 var Message = React.createClass({
     render: function () {
         return (
-            <div className='message'>{this.props.text}</div>
+            <div class="message-container">
+                <div className='message'>{this.props.text}</div>
+            </div>
         );
     }
 });
@@ -32,7 +34,7 @@ var KeyInput = React.createClass({
     render: function () {
         return (
             <form className="key-input-form" onSubmit={this.handleSubmit}>
-                <label for="token-input">TOKEN</label>
+                <label for="token-input">Enter Your telegram bot token here: </label>
                 <input
                     id="token-input"
                     type="text"
