@@ -49,6 +49,19 @@ var MessageInput = React.createClass({
     getInitialState: function() {
         return {message: ''};
     },
+    handleSubmit: function (event) {
+        event.preventDefault();
+        var text = this.state.message.trim();
+        if (!text) {
+            return;
+        }
+        this.props.onMessageSubmit(text);
+        this.setState({message: ''});
+    },
+    handleChange: function(event) {
+        var text = event.target.value;
+        this.setState({message: text});
+    },
     render: function () {
         return (
             <form className="message-input-form" onSubmit={this.handleSubmit}>
@@ -56,7 +69,7 @@ var MessageInput = React.createClass({
                     type="text"
                     placeholder="Your name"
                     value={this.state.message}
-                    onChange={this.handleAuthorChange}
+                    onChange={this.handleChange}
                 />
                 <input type="submit" value="Post" />
             </form>
@@ -72,6 +85,7 @@ var App = React.createClass({
         return {
             token: '',
             updateId: undefined,
+            chatId: undefined,
             messages: []
         };
     },
@@ -94,12 +108,19 @@ var App = React.createClass({
             processResult = function (resultArray) {
                 var newMessages = self.state.messages;
                 resultArray.map(function (result) {
-                    if (result.message && result.message.text && result.message.message_id) {
-                        newMessages.push({
-                            text: result.message.text,
-                            id: result.message.message_id
-                        });
+                    if (result.message) {
+                        if (result.message.text && result.message.message_id) {
+                            newMessages.push({
+                                text: result.message.text,
+                                id: result.message.message_id
+                            });
+                        }
+                        if (result.message.chat && result.message.chat.id) {
+                            self.setState({chatId: result.message.chat.id});
+                            console.log('chat id: ', result.message.chat.id);
+                        }
                     }
+
                     if (result.update_id) {
                         if ((self.state.updateId === undefined) || (result.update_id + 1 > self.state.updateId)) {
                             self.setState({updateId: result.update_id + 1});
@@ -145,12 +166,28 @@ var App = React.createClass({
         this.setState({token: value});
     },
 
+    handleMessageSubmit: function (value) {
+        var url;
+        if (this.state.chatId) {
+            url = this.BOT_API_URL + this.state.token + '/sendMessage?chat_id=' + this.state.chatId + '&text=' + value;
+            window.fetch(url).then( () => {
+                var newMessages = this.state.messages;
+                newMessages.push({
+                    text: value,
+                    id: +new Date()
+                });
+                console.log(newMessages);
+                this.setState({messages: newMessages});
+            });
+        }
+    },
+
     render: function () {
         return (
             <div className="app">
                 <KeyInput onChange={this.handleTokenChange} value={this.state.token} />
                 <Messages data={this.state.messages} />
-                <MessageInput />
+                <MessageInput onMessageSubmit={this.handleMessageSubmit} />
             </div>
         );
     }
