@@ -2,8 +2,8 @@
 var Message = React.createClass({
     render: function () {
         return (
-            <div class="message-container">
-                <div className='message'>{this.props.text}</div>
+            <div className={this.props.message.own ? 'message-container-own':'message-container'}>
+                <div className='message'>{this.props.message.text}</div>
             </div>
         );
     }
@@ -14,7 +14,7 @@ var Messages = React.createClass({
         var data = this.props.data;
         var messageTemplate = data.map(function(item, index) {
             return (
-                <Message text={item.text} key={index}>This is one comment</Message>
+                <Message message={item} key={index}>This is one comment</Message>
             )
         });
 
@@ -33,15 +33,18 @@ var KeyInput = React.createClass({
     },
     render: function () {
         return (
-            <form className="key-input-form" onSubmit={this.handleSubmit}>
-                <label for="token-input">Enter Your telegram bot token here: </label>
-                <input
-                    id="token-input"
-                    type="text"
-                    placeholder="Your key"
-                    value={this.props.value}
-                    onChange={this.handleChange}
-                />
+            <form className="" onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                    <label for="token-input">Bot token</label>
+                    <input
+                        className ="form-control"
+                        id="token-input"
+                        type="text"
+                        placeholder="Your key"
+                        value={this.props.value}
+                        onChange={this.handleChange}
+                    />
+                </div>
             </form>
         );
     }
@@ -66,14 +69,17 @@ var MessageInput = React.createClass({
     },
     render: function () {
         return (
-            <form className="message-input-form" onSubmit={this.handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Your name"
-                    value={this.state.message}
-                    onChange={this.handleChange}
-                />
-                <input type="submit" value="Post" />
+            <form className="form-inline" onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                    <input
+                        className ="form-control"
+                        type="text"
+                        placeholder="Write a message..."
+                        value={this.state.message}
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <button type="submit" className="btn btn-default">Post</button>
             </form>
         );
     }
@@ -114,7 +120,8 @@ var App = React.createClass({
                         if (result.message.text && result.message.message_id) {
                             newMessages.push({
                                 text: result.message.text,
-                                id: result.message.message_id
+                                id: result.message.message_id,
+                                own: false
                             });
                         }
                         if (result.message.chat && result.message.chat.id) {
@@ -176,7 +183,8 @@ var App = React.createClass({
                 var newMessages = this.state.messages;
                 newMessages.push({
                     text: value,
-                    id: +new Date()
+                    id: +new Date(),
+                    own: true
                 });
                 console.log(newMessages);
                 this.setState({messages: newMessages});
