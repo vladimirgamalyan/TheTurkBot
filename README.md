@@ -1,4 +1,7 @@
 # The Turk Bot
+
+[![Build Status](https://travis-ci.org/vladimirgamalian/TheTurkBot.svg?branch=master)](https://travis-ci.org/vladimirgamalian/TheTurkBot)
+
 ## The Turk
 **The Turk**, also known as the **Mechanical Turk** or **Automaton Chess Player**, was a fake chess-playing machine constructed in the late 18th century ([*wikipedia*](https://en.wikipedia.org/wiki/The_Turk)).
 
