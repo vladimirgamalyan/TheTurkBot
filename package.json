@@ -21,7 +21,7 @@
     "url": "https://github.com/vladimirgamalian/TheTurkBot/issues"
   },
   "homepage": "http://vladimirgamalian.github.io/TheTurkBot/",
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "^6.9.0",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
