@@ -1,0 +1,27 @@
+{
+  "name": "the-turk-bot",
+  "version": "1.0.0",
+  "description": "Fake Telegram bot with a human under the hood",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladimirgamalian/TheTurkBot.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "theturk"
+  ],
+  "author": "Vladimir Gamalian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vladimirgamalian/TheTurkBot/issues"
+  },
+  "homepage": "http://vladimirgamalian.github.io/TheTurkBot/",
+  "devDependencies": {
+    "webpack": "^1.13.0"
+  }
+}
