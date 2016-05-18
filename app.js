@@ -1,3 +1,5 @@
+let React = require('react');
+var ReactDOM = require('react-dom');
 
 var Message = React.createClass({
     render: function () {
