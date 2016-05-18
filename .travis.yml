@@ -1,0 +1,21 @@
+sudo: false
+
+language: node_js
+
+os:
+  - linux
+  - osx
+
+node_js:
+  - "5"
+  - "4"
+  - "0.12"
+
+env:
+  - NODE_ENV=development
+  - NODE_ENV=production
+
+script: webpack
+
+notifications:
+  email: false
