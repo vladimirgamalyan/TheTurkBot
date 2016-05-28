@@ -14,8 +14,7 @@ body {
     border: #ccc;
     padding: 16px;
     margin: 16px 0 16px;
-    background: url("background.png");
-    background-repeat: repeat;
+    background: url("background.png") repeat;
     overflow-y: auto;
 }
 

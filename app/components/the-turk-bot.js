@@ -1,94 +1,11 @@
-
 import React from 'react';
-import { render } from 'react-dom';
+import AppStore from '../stores/store';
+import MessageHistory from '../components/message-history';
+import KeyInput from '../components/key-input';
+import MessageInput from '../components/message-input';
+import ActionsCreator from '../actions/action-creators';
 
-var Message = React.createClass({
-    render: function () {
-        return (
-            <div className={this.props.message.own ? 'message-container-own':'message-container'}>
-                <div className='message'>{this.props.message.text}</div>
-            </div>
-        );
-    }
-});
-
-var Messages = React.createClass({
-    render: function () {
-        var data = this.props.data;
-        var messageTemplate = data.map(function(item, index) {
-            return (
-                <Message message={item} key={index}>This is one comment</Message>
-            )
-        });
-
-        return (
-            <div className="messages">
-                {messageTemplate}
-            </div>
-        );
-    }
-});
-
-var KeyInput = React.createClass({
-    handleChange: function(event) {
-        var text = event.target.value;
-        this.props.onChange(text);
-    },
-    render: function () {
-        return (
-            <form className="" onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                    <label for="token-input">Bot token</label>
-                    <input
-                        className ="form-control"
-                        id="token-input"
-                        type="text"
-                        placeholder="Bot token"
-                        value={this.props.value}
-                        onChange={this.handleChange}
-                    />
-                </div>
-            </form>
-        );
-    }
-});
-
-var MessageInput = React.createClass({
-    getInitialState: function() {
-        return {message: ''};
-    },
-    handleSubmit: function (event) {
-        event.preventDefault();
-        var text = this.state.message.trim();
-        if (!text) {
-            return;
-        }
-        this.props.onMessageSubmit(text);
-        this.setState({message: ''});
-    },
-    handleChange: function(event) {
-        var text = event.target.value;
-        this.setState({message: text});
-    },
-    render: function () {
-        return (
-            <form className="" onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                    <input
-                        className ="form-control"
-                        type="text"
-                        placeholder="Write a message..."
-                        value={this.state.message}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <button type="submit" className="btn btn-default">Post</button>
-            </form>
-        );
-    }
-});
-
-var App = React.createClass({
+var TheTurkBot = React.createClass({
 
     BOT_API_URL: 'https://api.telegram.org/bot',
 
@@ -199,14 +116,60 @@ var App = React.createClass({
         return (
             <div className="app">
                 <KeyInput onChange={this.handleTokenChange} value={this.state.token} />
-                <Messages data={this.state.messages} />
+                <MessageHistory data={this.state.messages} />
                 <MessageInput onMessageSubmit={this.handleMessageSubmit} />
             </div>
         );
     }
 });
 
-render(
-    <App />,
-    document.getElementById('root')
-);
+var TestButton = React.createClass({
+    createNewItem: function () {
+        ActionsCreator.testAction('hooys');
+    },
+    render: function () {
+        return (
+            <button onClick={ this.createNewItem } className="btn btn-default">TEST</button>
+        );
+    }
+});
+
+var TestView = React.createClass({
+
+    getInitialState: function() {
+        return {
+            data: AppStore.getAll()
+        };
+    },
+
+    componentDidMount: function() {
+        AppStore.addChangeListener(this._onChange);
+    },
+
+    componentWillUnmount: function() {
+        AppStore.removeChangeListener(this._onChange);
+    },
+
+    _onChange: function() {
+        this.setState({
+            data: AppStore.getAll()
+        });
+    },
+
+    render: function () {
+        var items = this.state.data;
+        var itemHtml = items.map( function( item, index ) {
+            return <div key={index}>
+                { item }
+            </div>;
+        });
+
+        return (
+            <div>
+                { itemHtml }
+            </div>
+        )
+    }
+});
+
+export default TheTurkBot;

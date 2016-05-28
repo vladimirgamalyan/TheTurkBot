@@ -4,10 +4,10 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const __DEV__ = (NODE_ENV === 'development');
 
 module.exports = {
-    entry: './app.js',
+    entry: './app/app.js',
 
     output: {
-        filename: 'bundle.js'
+        filename: 'dist/bundle.js'
     },
 
     devtool: "source-map",
