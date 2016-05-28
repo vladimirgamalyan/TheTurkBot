@@ -1,6 +1,6 @@
 
-import { React } from 'react';
-import { ReactDOM } from 'react-dom';
+import React from 'react';
+import { render } from 'react-dom';
 
 var Message = React.createClass({
     render: function () {
@@ -206,7 +206,7 @@ var App = React.createClass({
     }
 });
 
-ReactDOM.render(
+render(
     <App />,
     document.getElementById('root')
 );
