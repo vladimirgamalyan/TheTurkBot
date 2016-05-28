@@ -1,6 +1,7 @@
 
 const webpack = require('webpack');
 const NODE_ENV = process.env.NODE_ENV || 'development';
+const __DEV__ = (NODE_ENV === 'development');
 
 module.exports = {
     entry: './app.js',
@@ -18,10 +19,14 @@ module.exports = {
         }]
     },
 
-    plugins: []
+    plugins: [
+        new webpack.DefinePlugin({
+            __DEV__: JSON.stringify(__DEV__)
+        })
+    ]
 };
 
-if (NODE_ENV == 'production') {
+if (!__DEV__) {
     module.exports.plugins.push(
         new webpack.optimize.UglifyJsPlugin({
             compress: {
