@@ -36,7 +36,6 @@
     "webpack": "^1.13.0"
   },
   "devDependencies": {
-    "redux-devtools": "^3.3.1",
     "webpack-dev-server": "^1.14.1"
   }
 }
