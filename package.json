@@ -4,6 +4,8 @@
   "description": "Fake Telegram bot with a human under the hood",
   "main": "app.js",
   "scripts": {
+    "start": "webpack-dev-server",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +31,12 @@
     "node-static": "^0.7.7",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
     "webpack": "^1.13.0"
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.3.1",
+    "webpack-dev-server": "^1.14.1"
   }
 }
